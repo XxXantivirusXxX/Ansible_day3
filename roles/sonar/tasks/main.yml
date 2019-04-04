@@ -1,0 +1,46 @@
+---
+# tasks file for sonar
+
+
+- name: Extract sonarqube-7.7.zip
+  unarchive:
+    src: "{{link}}"
+    dest: /opt/
+    remote_src: yes
+
+- name: change owner for sonar
+  file:
+    path: "{{sonarqube_path}}"   
+    recurse: yes
+    state: directory
+    owner: "{{sonar_user}}"
+    group: "{{sonar_user}}"
+
+- name: Systemd file for sonar
+  copy: 
+    src: "{{sonar_service}}"     
+    dest: "{{constant.systemd_path}}"
+    owner: "{{sonar_user}}"
+    group: "{{sonar_user}}"
+
+- name: change sonar config for pgsql
+  copy: 
+    src: "{{sonar_conf}}"
+    dest: "{{sonarqube_path_conf}}"
+    owner: "{{sonar_user}}"
+    group: "{{sonar_user}}"
+    
+- name: ensure that start sonar
+  service: 
+    name: "{{sonar_service}}"
+    state: started
+    enabled: yes
+  become: yes
+
+- import_tasks: nginx_configure.yml
+  when: "nginx_version in is_service_present.stdout"
+
+
+
+
+

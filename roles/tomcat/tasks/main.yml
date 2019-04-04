@@ -1,0 +1,53 @@
+---
+# tasks file for tomcat
+
+#- name: Create a tomcat user 
+#  user: 
+#    name: tomcat
+#    uid: 4444
+#    password: "{{ 'nexus' | password_hash('sha512', 'mysecretsalt') }}"
+
+#- shell: yum install -y unzip
+
+- name: extract tomcat
+  unarchive:
+    src: "{{link}}"
+    dest: /opt
+    remote_src: yes   
+  become: yes
+
+- name: copy tomcat service
+  copy:
+    src: "{{tomcat_service}}"
+    dest: "{{constant.systemd_path}}"
+    owner: "{{tomcat_user}}"
+    group: "{{tomcat_user}}"
+
+- name: change owner for tomcat
+  file:
+    path: "{{tomcat_path}}"
+    recurse: yes
+    state: directory
+    mode: 0755
+    owner: "{{tomcat_user}}"
+    group: "{{tomcat_user}}"
+
+#- name: change owner for tomcat
+#  file:
+#    path: /opt/apache-tomcat-8.5.39/logs  
+#    recurse: yes
+#    state: directory
+#    owner: tomcat
+#    group: tomcat
+
+#- name: Run Tomcat
+#  shell: ./startup.sh
+#  args:
+#    chdir: /opt/apache-tomcat-8.5.39/bin
+#  become: yes
+
+- name: start and enable tomcat
+  service: 
+    name: tomcat
+    state: started
+    enabled: yes

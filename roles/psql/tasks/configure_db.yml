@@ -1,0 +1,31 @@
+
+- postgresql_user:
+    name: "{{db_user}}"
+    password: "{{db_password}}"    
+    role_attr_flags: "{{db_user_attr}}"
+    state: present
+  become: yes
+  become_user: "{{psql_user}}"
+
+- postgresql_db:
+    name: "{{db_name}}"
+    owner: "{{db_owner}}"
+    state: present  
+  become: yes
+  become_user: "{{psql_user}}"
+
+- postgresql_privs:
+    db: "{{db_name}}"
+    privs: "{{db_priv}}"
+    type: database
+    role: "{{db_user}}"
+    grant_option: yes
+  become: yes
+  become_user: "{{psql_user}}"
+
+- name: change psql config
+  copy: 
+    src: "{{psql_conf}}"
+    dest: "{{psql_data_path}}"
+    owner: "{{psql_user}}"
+    group: "{{psql_user}}"

@@ -1,0 +1,14 @@
+
+- name: change nginx config
+  copy:
+    src: "{{jenkins_nginx_conf}}"
+    dest: "{{constant.nginx_conf_path}}"
+    owner: "{{nginx_owner}}"
+  become: yes
+
+- name: start nginx
+  service: 
+    name: "{{nginx_owner}}"
+    state: started
+    enabled: yes
+  become: yes

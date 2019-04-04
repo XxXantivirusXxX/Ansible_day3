@@ -1,0 +1,12 @@
+---
+# defaults file for tomcat
+
+tomcat_user: tomcat
+tomcat_service: tomcat.service
+link: http://ftp.byfly.by/pub/apache.org/tomcat/tomcat-8/v8.5.39/bin/apache-tomcat-8.5.39.zip
+tomcat_path: /opt/apache-tomcat-8.5.39 
+sonarqube_path_conf: /opt/sonarqube-7.7/conf/
+
+sonar_nginx_conf: nginx.conf
+nginx_owner: nginx
+nginx_version: 1.12.2

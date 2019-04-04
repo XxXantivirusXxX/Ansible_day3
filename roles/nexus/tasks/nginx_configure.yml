@@ -1,0 +1,12 @@
+
+- name: change nexus nginx config
+  copy:
+    src: "{{nexus_nginx_conf}}"
+    dest: "{{constant.nginx_conf_path}}"
+    owner: "{{nginx_owner}}"
+
+- name: start nexus nginx
+  service: 
+    name: "{{nginx_owner}}"
+    state: restarted
+    enabled: yes

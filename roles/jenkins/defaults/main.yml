@@ -1,0 +1,9 @@
+---
+# defaults file for jenkins
+
+jenkins_user: jenkins
+jenkins_service: jenkins.service
+jenkins_nginx_conf: nginx.conf
+nginx_owner: nginx
+nginx_version: 1.12.2
+

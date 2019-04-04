@@ -1,0 +1,15 @@
+
+- name: change sonar nginx config
+  copy:
+    src: "{{sonar_nginx_conf}}"
+    dest: "{{constant.nginx_conf_path}}"
+    owner: "{{nginx_owner}}"
+    group: "{{nginx_owner}}"
+  become: yes
+
+- name: start sonar nginx
+  service: 
+    name: nginx
+    state: restarted
+    enabled: yes
+  become: yes

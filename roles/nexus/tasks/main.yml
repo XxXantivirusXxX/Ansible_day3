@@ -1,0 +1,42 @@
+---
+# tasks file for nexus
+
+- name: Extract nexus
+  unarchive:
+    src: "{{link}}"
+    dest: /opt/
+    remote_src: yes    
+
+- name: change owner for nexus
+  file:
+    path: "{{item}}"    
+    recurse: yes
+    state: directory
+    owner: "{{nexus_user}}"
+    group: "{{nexus_user}}"
+  with_items:
+    - "{{sonatype_work}}"
+    - "{{nexus_dir}}"
+
+- name: Systemd file for nexus
+  copy: 
+    src: "{{nexus_service}}"
+    dest: "{{constant.systemd_path}}"
+    owner: "{{nexus_user}}"
+    group: "{{nexus_user}}"
+    
+- name: start nexus
+  service: 
+    name: "{{nexus_user}}"
+    state: started
+    enabled: yes
+
+- import_tasks: nginx_configure.yml
+  when: "nginx_version in is_service_present.stdout"
+
+
+
+
+
+
+

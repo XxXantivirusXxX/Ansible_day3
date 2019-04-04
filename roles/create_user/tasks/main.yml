@@ -1,0 +1,36 @@
+---
+# tasks file for create_user
+
+#- debug:
+#     msg: "{{users[jenkins],['password']}}"
+  
+#- debug:
+#     msg: "{{username}}"
+#  vars:
+#    username: jenkins
+
+- name: Create users
+  user: 
+    name: "{{username}}"
+    password: "{{user[username].password}}"
+    uid: "{{user[username].uid}}"
+
+
+
+#    password: "{{user[usern].password}}"
+
+
+#- name: Add {{user[username].name}} to sudoers    
+#  copy:
+#    src: "{{user[username].sudoers_file}}"
+#    dest: /etc/sudoers.d
+
+  
+#- name: Creates directory
+#  file:
+#    path: /home/jenkins/.ssh
+#    state: directory
+#    owner: "{{user}}"
+#    group: jenkins
+
+

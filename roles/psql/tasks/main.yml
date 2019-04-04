@@ -1,0 +1,57 @@
+---
+# tasks file for psql
+
+- name: install the psql rpm from a remote repo
+  yum:
+    name:
+      - "{{link}}"      
+    state: present
+  become: yes
+  notify: init db
+
+- name: install the psql packages using yum
+  yum:
+    name:
+      - "{{psql_server}}"
+      - "{{psql_version}}"      
+    state: present 
+  become: yes
+
+#- pip:
+#    name: "{{pip_arg}}"
+
+- meta: flush_handlers
+
+- name: ensure that postgress running and enabled
+  service: 
+    name: postgresql-11
+    state: started
+    enabled: yes
+  changed_when: no
+  become: yes
+
+- import_tasks: configure_db.yml
+#  when: "nginx_version in is_service_present.stdout"
+
+- name: ensure that postgress running and enabled
+  service: 
+    name: postgresql-11
+    state: restarted
+    enabled: yes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

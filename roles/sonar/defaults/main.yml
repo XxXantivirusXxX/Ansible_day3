@@ -1,0 +1,13 @@
+---
+# defaults file for sonar
+
+sonar_user: sonar
+sonar_service: sonar.service
+sonar_conf: sonar.properties
+link: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.7.zip
+sonarqube_path: /opt/sonarqube-7.7
+sonarqube_path_conf: /opt/sonarqube-7.7/conf/
+
+sonar_nginx_conf: nginx.conf
+nginx_owner: nginx
+nginx_version: 1.12.2
