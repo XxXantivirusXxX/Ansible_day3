@@ -1,10 +1,15 @@
-[master]
-192.168.56.200  ansible_user=root ansible_password=vagrant
+[all:vars]
+ansible_user=root
+ansible_password=vagrant
 
-[slaves]
-192.168.56.201  ansible_user=root ansible_password=vagrant
-192.168.56.202  ansible_user=root ansible_password=vagrant
-192.168.56.203  ansible_user=root ansible_password=vagrant
+[jenkins]
+192.168.56.200 
 
+[sonar]
+192.168.56.201  
 
+[nexus]
+192.168.56.202  
 
+[tomcat]
+192.168.56.203  

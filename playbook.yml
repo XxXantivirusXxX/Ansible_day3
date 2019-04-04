@@ -1,41 +1,20 @@
 - hosts: all
   roles:
-    - common
-    
+    - common    
 
-- hosts: master
-#  vars:
-#   is_service_present: absent  
-#  pre_tasks:
-#    - name: git
-#      package: name=git state=installed
+- hosts: jenkins
   roles:
-#    - key
-#    - nginx
-#    - create_user
-#    - java
-    - jenkins
-  
+    - jenkins   
 
-#- hosts: slaves
-#  roles:
-#    - java
-    
-
-- hosts: 192.168.56.201
+- hosts: sonar
   roles:    
-#    - psql
-    - sonar
-    
+    - sonar    
    
-- hosts: 192.168.56.202
+- hosts: nexus
   roles:
     - nexus
 
-- hosts: 192.168.56.203
+- hosts: tomcat
   roles:   
     - tomcat
-
-
-
 
