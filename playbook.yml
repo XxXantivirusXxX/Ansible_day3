@@ -19,7 +19,7 @@
   roles:   
     - tomcat
 
-- hosts: control_machine
-  roles:
-    - deploy_tomcat
+#- hosts: control_machine
+#  roles:
+#    - deploy_tomcat
 
