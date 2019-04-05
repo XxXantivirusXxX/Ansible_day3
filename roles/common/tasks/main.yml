@@ -17,14 +17,13 @@
     state: installed
   with_items:
     - unzip     
-    - python-pip      
+#    - python-pip      
     - git    
   become: yes
     
-
-- pip:
-    name: psycopg2
-  become: yes
+#- pip:
+#    name: psycopg2
+#  become: yes
 
 
 

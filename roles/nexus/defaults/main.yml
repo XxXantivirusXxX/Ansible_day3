@@ -2,11 +2,17 @@
 # defaults file for nexus
 
 nexus_user: nexus
-nexus_service: nexus.service
-nexus_nginx_conf: nginx.conf
+nexus_group: nexus
+nexus_home: /opt/nexus/
+nexus_version: 3.15.2-01
+LimitNOFILE: 65536
 link: http://download.sonatype.com/nexus/3/nexus-3.15.2-01-unix.tar.gz
-sonatype_work: /opt/sonatype-work 
-nexus_dir: /opt/nexus-3.15.2-01
+
 nginx_owner: nginx
+nginx_group: nginx
 nginx_version: 1.12.2
+nginx_proxy_pass: http://localhost:8081
+
+java_home: /usr/bin
+java_version: java-1.8.0-openjdk
 

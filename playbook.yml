@@ -3,11 +3,12 @@
     - common    
 
 - hosts: jenkins
+  become: yes
   roles:
-    - jenkins   
+    - jenkins
 
 - hosts: sonar
-  roles:    
+  roles:  
     - sonar    
    
 - hosts: nexus
@@ -17,4 +18,8 @@
 - hosts: tomcat
   roles:   
     - tomcat
+
+- hosts: control_machine
+  roles:
+    - deploy_tomcat
 

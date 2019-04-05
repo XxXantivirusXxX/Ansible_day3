@@ -2,11 +2,19 @@
 # defaults file for tomcat
 
 tomcat_user: tomcat
-tomcat_service: tomcat.service
+tomcat_group: tomcat
+tomcat_home: /opt/apache-tomcat-8.5.39
 link: http://ftp.byfly.by/pub/apache.org/tomcat/tomcat-8/v8.5.39/bin/apache-tomcat-8.5.39.zip
-tomcat_path: /opt/apache-tomcat-8.5.39 
-sonarqube_path_conf: /opt/sonarqube-7.7/conf/
+ 
+admin_tomcat_xml: admin
+admin__tomcat_xml_paswd: 123456
 
-sonar_nginx_conf: nginx.conf
+user_xml: deployer
+user_xml_paswd: 123456
+roles_xml: admin-gui,admin-script,manager-gui,manager-status,manager-script
+
+nginx_proxy_pass: http://localhost:8080 
+
+
 nginx_owner: nginx
 nginx_version: 1.12.2

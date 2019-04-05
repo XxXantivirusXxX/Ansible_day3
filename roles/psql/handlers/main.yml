@@ -1,6 +1,6 @@
 ---
 # handlers file for psql
 
-- name: initialize postgresql11
+- name: initialize postgresql
   shell: "{{init}}"
   listen: init db

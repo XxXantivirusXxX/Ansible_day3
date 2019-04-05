@@ -1,31 +1,31 @@
 
-- postgresql_user:
-    name: "{{db_user}}"
-    password: "{{db_password}}"    
-    role_attr_flags: "{{db_user_attr}}"
-    state: present
-  become: yes
-  become_user: "{{psql_user}}"
 
-- postgresql_db:
-    name: "{{db_name}}"
-    owner: "{{db_owner}}"
-    state: present  
+- name: PostgreSQL configuration
   become: yes
-  become_user: "{{psql_user}}"
-
-- postgresql_privs:
-    db: "{{db_name}}"
-    privs: "{{db_priv}}"
-    type: database
-    role: "{{db_user}}"
-    grant_option: yes
-  become: yes
-  become_user: "{{psql_user}}"
+  become_user: postgres
+  shell: |
+    psql -c "create user "{{db_user}}""
+    psql -c "alter user "{{db_user}}" with encrypted password "{{db_password}}""
+    psql -c "alter role "{{db_user}}" with "{{db_user_attr}}""
+    psql -c "create database "{{db_name}}" owner "{{db_owner}}""
+    psql -c "grant all privileges on database "{{db_name}}" to "{{db_owner}}""
+  changed_when: no
 
 - name: change psql config
   copy: 
-    src: "{{psql_conf}}"
+    src: pg_hba.conf
     dest: "{{psql_data_path}}"
     owner: "{{psql_user}}"
     group: "{{psql_user}}"
+
+- name: ensure that postgress running and enabled
+  service: 
+    name: "{{psql_service}}"
+    state: restarted
+    enabled: yes
+  
+
+
+
+
+

@@ -3,27 +3,27 @@
 user:
 
   tomcat:    
-    uid: 4444
+    uid: 4444    
     password: "{{ 'tomcat' | password_hash('sha512', 'mysecretsalt') }}"
 
   postgres:
-    uid: 5555
+    uid: 5555   
     password: "{{ 'postgres' | password_hash('sha512', 'mysecretsalt') }}"
 
   jenkins:
-    uid: 6666
+    uid: 6666    
     password: "{{ 'jenkins' | password_hash('sha512', 'mysecretsalt') }}" 
 
   sonar:   
-    uid: 7777
+    uid: 7777    
     password: "{{ 'sonar' | password_hash('sha512', 'mysecretsalt') }}"
     
   nexus:   
-    uid: 8888
+    uid: 8888   
     password: "{{ 'nexus' | password_hash('sha512', 'mysecretsalt') }}"
     
   nginx:   
-    uid: 9999
+    uid: 9999  
     password: "{{ 'nginx' | password_hash('sha512', 'mysecretsalt') }}"
 
 

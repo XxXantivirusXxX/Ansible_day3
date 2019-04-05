@@ -1,0 +1,12 @@
+[Unit]
+Description=Jenkins Daemon
+
+[Service]
+Type=simple
+ExecStart={{jenkins_home}}/java -Duser.home={{jenkins_home}} {{jenkins_xms}} {{jenkins_xmx}} -jar {{jenkins_home}}/jenkins.war
+User={{jenkins_user}}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

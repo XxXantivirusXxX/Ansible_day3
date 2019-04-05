@@ -46,7 +46,7 @@ http {
 
      
            location / {
-    proxy_pass {{nginx_proxy_pass}};
+    proxy_pass http://localhost:9000;
     proxy_read_timeout  90;
     proxy_set_header X-Forwarded-Host $host:$server_port;
     proxy_set_header X-Forwarded-Server $host;

@@ -1,0 +1,16 @@
+[Unit]
+Description=Sonar 4
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart={{sonarqube_home}}/bin/linux-x86-64/sonar.sh start -{{xms}} -{{xmx}}
+ExecStop={{sonarqube_home}}/bin/linux-x86-64/sonar.sh stop
+ExecReload={{sonarqube_home}}/bin/linux-x86-64/sonar.sh restart
+PIDFile={{sonarqube_home}}/bin/linux-x86-64/./SonarQube.pid
+Type=forking
+User={{sonar_user}}
+
+
+[Install]
+WantedBy=multi-user.target

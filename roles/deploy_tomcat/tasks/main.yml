@@ -1,0 +1,7 @@
+---
+# tasks file for deploy_tomcat
+
+- import_tasks: deploy_tomcat.yaml
+
+
+

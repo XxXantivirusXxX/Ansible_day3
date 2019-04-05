@@ -10,35 +10,33 @@
 
 - name: change owner for sonar
   file:
-    path: "{{sonarqube_path}}"   
+    path: "{{sonarqube_home}}"   
     recurse: yes
     state: directory
     owner: "{{sonar_user}}"
-    group: "{{sonar_user}}"
+    group: "{{sonar_group}}"
 
-- name: Systemd file for sonar
-  copy: 
-    src: "{{sonar_service}}"     
-    dest: "{{constant.systemd_path}}"
-    owner: "{{sonar_user}}"
-    group: "{{sonar_user}}"
+- name: Deploy Systemd File sonar.service
+  template:
+    src: sonar.service.j2
+    dest: /etc/systemd/system/sonar.service
 
 - name: change sonar config for pgsql
   copy: 
-    src: "{{sonar_conf}}"
-    dest: "{{sonarqube_path_conf}}"
+    src: sonar.properties
+    dest: "{{sonarqube_home}}/conf"
     owner: "{{sonar_user}}"
-    group: "{{sonar_user}}"
+    group: "{{sonar_group}}"
     
 - name: ensure that start sonar
   service: 
-    name: "{{sonar_service}}"
+    name: sonar.service
     state: started
     enabled: yes
   become: yes
 
 - import_tasks: nginx_configure.yml
-  when: "nginx_version in is_service_present.stdout"
+  when: nginx_state is changed
 
 
 

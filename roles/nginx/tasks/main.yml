@@ -4,10 +4,12 @@
 
 - name: install nginx
   package: name=nginx state=installed     
+  register: nginx_state
   become: yes
-  
+    
 - name: nginx version
   shell: nginx -v 2>&1 | awk -F/ '{print $2}'
-  register: is_service_present
+  register: nginx_version
+  changed_when: no
 
 

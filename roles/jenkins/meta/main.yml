@@ -61,6 +61,8 @@ dependencies:
   vars:
     username: "{{jenkins_user}}"
 - role: java
+  vars:
+    java_vers: "{{java_version}}" 
 - role: nginx
 
   

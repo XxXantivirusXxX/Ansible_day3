@@ -56,13 +56,4 @@ galaxy_info:
     #       Maximum 20 tags per role.
 
 dependencies: 
-- role: create_user
-  vars:
-    username: "{{nexus_user}}"
-- role: java  
-  vars: 
-    java_vers: "{{java_version}}"
-- role: nginx
-
-
 

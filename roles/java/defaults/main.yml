@@ -1,6 +1,5 @@
 ---
 # defaults file for java
 
-java:
-  VERSION: "java-1.8.0-openjdk"
+java_vers: "java-1.8.0-openjdk"
 

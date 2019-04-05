@@ -60,3 +60,4 @@ dependencies:
 - role: create_user
   vars:
     username: "{{tomcat_user}}"
+- role: nginx

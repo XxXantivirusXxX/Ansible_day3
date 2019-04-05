@@ -2,8 +2,15 @@
 # defaults file for jenkins
 
 jenkins_user: jenkins
-jenkins_service: jenkins.service
-jenkins_nginx_conf: nginx.conf
-nginx_owner: nginx
+jenkins_group: jenkins
+jenkins_home: /opt/jenkins
+jenkins_xms: -Xms1000m 
+jenkins_xmx: -Xmx1500m
+
+java_home: /usr/bin
+java_version: java-1.8.0-openjdk
+
+
 nginx_version: 1.12.2
+nginx_proxy_pass: http://localhost:8080 
 

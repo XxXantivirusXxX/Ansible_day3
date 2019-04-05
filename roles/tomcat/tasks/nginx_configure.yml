@@ -1,5 +1,4 @@
 
-
 - name: Deploy nginx.conf file 
   template:
     src: nginx.conf.j2
@@ -10,4 +9,3 @@
     name: nginx
     state: started
     enabled: yes
-

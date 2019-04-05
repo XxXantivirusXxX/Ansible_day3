@@ -2,6 +2,11 @@
 # tasks file for java
 - name: Install Java 8 using YUM.
   yum:
-    name: "{{java.VERSION}}"
-    state: latest  
+    name: "{{java_vers}}"
+    state: present
   become: true
+
+- name: Java version
+  shell: java -version 2>&1 | awk NR==1'{print $3}'
+  register: java_version
+  changed_when: no

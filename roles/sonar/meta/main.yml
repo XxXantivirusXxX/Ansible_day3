@@ -61,5 +61,7 @@ dependencies:
     username: "{{sonar_user}}"
 - role: psql
 - role: java   
+  vars:
+    java_vers: "{{java_version}}"
 - role: nginx
   

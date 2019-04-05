@@ -3,17 +3,19 @@
 psql_user: postgres
 link: https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/pgdg-centos11-11-2.noarch.rpm
 init: /usr/pgsql-11/bin/postgresql-11-setup initdb
+
+
 psql_conf: pg_hba.conf
 psql_data_path: /var/lib/pgsql/11/data/
 psql_server:  postgresql11-server
 psql_version: postgresql11
-#pip_arg: psycopg2
+psql_service: postgresql-11
+
 
 db_user: sonar
 db_password: sonar
-db_user_attr: "CREATEDB,NOSUPERUSER"
+db_user_attr: createdb
 db_name: sonar
-db_priv: ALL
 db_owner: sonar
 
 

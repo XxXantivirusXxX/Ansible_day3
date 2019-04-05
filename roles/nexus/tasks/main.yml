@@ -1,38 +1,38 @@
 ---
 # tasks file for nexus
 
+- name: Ensure that nexus_home exist
+  file: 
+    path: "{{nexus_home}}"
+    state: directory    
+
 - name: Extract nexus
   unarchive:
     src: "{{link}}"
-    dest: /opt/
+    dest: "{{nexus_home}}"
     remote_src: yes    
 
-- name: change owner for nexus
+- name: ensure that nexus_user is owner for nexus
   file:
-    path: "{{item}}"    
+    path: "{{nexus_home}}"   
     recurse: yes
     state: directory
     owner: "{{nexus_user}}"
-    group: "{{nexus_user}}"
-  with_items:
-    - "{{sonatype_work}}"
-    - "{{nexus_dir}}"
+    group: "{{nexus_group}}"
 
-- name: Systemd file for nexus
-  copy: 
-    src: "{{nexus_service}}"
-    dest: "{{constant.systemd_path}}"
-    owner: "{{nexus_user}}"
-    group: "{{nexus_user}}"
-    
+- name: Deploy Systemd File nexus.service
+  template:
+    src: nexus.service.j2
+    dest: /etc/systemd/system/nexus.service 
+   
 - name: start nexus
   service: 
-    name: "{{nexus_user}}"
+    name: nexus
     state: started
     enabled: yes
 
 - import_tasks: nginx_configure.yml
-  when: "nginx_version in is_service_present.stdout"
+  when: nginx_state is changed
 
 
 

@@ -1,12 +1,11 @@
 
-- name: change nexus nginx config
-  copy:
-    src: "{{nexus_nginx_conf}}"
-    dest: "{{constant.nginx_conf_path}}"
-    owner: "{{nginx_owner}}"
+- name:  Deploy nginx.conf file 
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
 
 - name: start nexus nginx
   service: 
-    name: "{{nginx_owner}}"
-    state: restarted
+    name: nginx
+    state: started
     enabled: yes
