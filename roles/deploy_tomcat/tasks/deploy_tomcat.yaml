@@ -18,33 +18,31 @@
         src: http://nexus-ci.playpit.by/repository/MNT-pipeline-training/{{creator}}/pipeline-{{creator}}/{{build}}/pipeline-{{creator}}-{{build}}.tar.gz
         dest: /tmp/{{creator}}/new
         remote_src: yes 
-      #ttp://lexx:123456@192.168.56.30:8080/manager/text/deploy?path=/{{ fio }}&update=true&tag={{ last }}'
+     
     - name: deploy 
       shell: |
         curl -T "/tmp/{{creator}}/new/helloworld-ws/target/helloworld-ws.war" \
         "http://{{deploy_user}}:{{deploy_paswd}}@{{tomcat_ip}}/manager/text/deploy?path=/helloworld-ws-{{creator}}&tag={{build}}&update=true"
       changed_when: no 
 
-    - name: undeploy 
-      shell: |
-        curl "http://{{deploy_user}}:{{deploy_paswd}}@{{tomcat_ip}}/manager/text/undeploy?path=/helloworld-ws-{{creator}}"
-      changed_when: no       
+    # - name: undeploy 
+    #   shell: |
+    #     curl "http://{{deploy_user}}:{{deploy_paswd}}@{{tomcat_ip}}/manager/text/undeploy?path=/helloworld-ws-{{creator}}"
+    #   changed_when: no       
     
-    - name: check access html page
-      shell: "curl -IL http://{{tomcat_ip}}/helloworld-ws-{{creator}}"
-      register: result
-      ignore_errors: True    
+    # - name: check access html page
+    #   shell: "curl -IL http://{{tomcat_ip}}/helloworld-ws-{{creator}}"
+    #   register: result
+    #   ignore_errors: True    
 
-    - name: if app work, move it to old version
-      copy:         
-        src: /tmp/{{creator}}/new/helloworld-ws/target/helloworld-ws.war 
-        dest: /tmp/{{creator}}/old/helloworld-ws.war        
-      when: '"HTTP/1.1 200" in result.stdout'        
+    # - name: if app work, move it to old version
+    #   copy:         
+    #     src: /tmp/{{creator}}/new/helloworld-ws/target/helloworld-ws.war 
+    #     dest: /tmp/{{creator}}/old/helloworld-ws.war        
+    #   when: '"HTTP/1.1 200" in result.stdout'        
       
-    - name: rollback if app unavailable
-      shell: |
-        curl -T "/tmp/{{creator}}/old/helloworld-ws.war" \
-        "http://{{deploy_user}}:{{deploy_paswd}}@{{tomcat_ip}}/manager/text/deploy?path=/helloworld-ws-{{creator}}&update=true"
-      when: '"HTTP/1.1 200" not in result.stdout'  
-
-   
+    # - name: rollback if app unavailable
+    #   shell: |
+    #     curl -T "/tmp/{{creator}}/old/helloworld-ws.war" \
+    #     "http://{{deploy_user}}:{{deploy_paswd}}@{{tomcat_ip}}/manager/text/deploy?path=/helloworld-ws-{{creator}}&update=true"
+    #   when: '"HTTP/1.1 200" not in result.stdout'  
