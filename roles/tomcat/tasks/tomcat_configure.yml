@@ -1,0 +1,17 @@
+- name: add tomcat manager gui and deployer user
+  template:
+    src: tomcat.users.xml.j2
+    dest: "{{tomcat_home}}/conf/tomcat-users.xml"
+
+- name: add ability to remote deploy
+  copy:
+    src: context.xml
+    dest: "{{tomcat_home}}/conf/context.xml"
+    owner: "{{tomcat_user}}"
+    group: "{{tomcat_group}}"
+
+- name: restart and enable tomcat
+  service: 
+    name: tomcat
+    state: restarted
+    enabled: yes

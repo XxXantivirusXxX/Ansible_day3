@@ -13,18 +13,6 @@
     src: tomcat.service.j2
     dest: /etc/systemd/system/tomcat.service
 
-- name: add tomcat manager gui and deployer user
-  template:
-    src: tomcat.users.xml.j2
-    dest: "{{tomcat_home}}/conf/tomcat-users.xml"
-
-- name: add ability to remote deploy
-  copy:
-    src: context.xml
-    dest: "{{tomcat_home}}/conf/context.xml"
-    owner: "{{tomcat_user}}"
-    group: "{{tomcat_group}}"
-
 - name: change owner for tomcat
   file:
     path: "{{tomcat_home}}"
@@ -39,6 +27,8 @@
     name: tomcat
     state: started
     enabled: yes
+
+- import_tasks: tomcat_configure.yml  
 
 - import_tasks: nginx_configure.yml
   when: nginx_state is changed
