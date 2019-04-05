@@ -27,16 +27,10 @@
   changed_when: no
   become: yes
 
-#- import_tasks: pip_depend.yml
+
 
 - import_tasks: configure_db.yml
-#  when: "nginx_version in is_service_present.stdout"
 
-#- name: ensure that postgress running and enabled
-#  service: 
-#    name: "{{psql_version}}"
-#    state: started
-#    enabled: yes
 
 
 
