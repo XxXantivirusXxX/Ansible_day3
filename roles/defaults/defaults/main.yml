@@ -4,31 +4,29 @@ user:
 
   tomcat:    
     uid: 4444    
-    password: "{{ 'tomcat' | password_hash('sha512', 'mysecretsalt') }}"
+    gid: 4444
 
   postgres:
-    uid: 5555   
-    password: "{{ 'postgres' | password_hash('sha512', 'mysecretsalt') }}"
+    uid: 5555
+    gid: 5555   
+    
 
   jenkins:
     uid: 6666    
-    password: "{{ 'jenkins' | password_hash('sha512', 'mysecretsalt') }}" 
+    gid: 6666
 
   sonar:   
     uid: 7777    
-    password: "{{ 'sonar' | password_hash('sha512', 'mysecretsalt') }}"
+    gid: 7777
     
   nexus:   
     uid: 8888   
-    password: "{{ 'nexus' | password_hash('sha512', 'mysecretsalt') }}"
+    gid: 8888
     
   nginx:   
     uid: 9999  
-    password: "{{ 'nginx' | password_hash('sha512', 'mysecretsalt') }}"
+    gid: 9999
 
 
-constant:
-  systemd_path: /etc/systemd/system/
-  nginx_conf_path: /etc/nginx/
   
 

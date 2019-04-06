@@ -21,7 +21,7 @@
     mode: 0755
     owner: "{{tomcat_user}}"
     group: "{{tomcat_group}}"
-
+  
 - name: start and enable tomcat
   service: 
     name: tomcat
@@ -29,6 +29,9 @@
     enabled: yes
 
 - import_tasks: tomcat_configure.yml  
+  notify:
+  - save details
 
 - import_tasks: nginx_configure.yml
   when: nginx_state is changed
+  

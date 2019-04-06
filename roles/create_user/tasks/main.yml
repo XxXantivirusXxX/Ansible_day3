@@ -3,9 +3,9 @@
 
 - name: Create users
   user: 
-    name: "{{username}}"
-    password: "{{user[username].password}}"
+    name: "{{username}}"    
     uid: "{{user[username].uid}}"
+    
 
 
 

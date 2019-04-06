@@ -1,0 +1,56 @@
+> GROUP    (/home/student/.pyenv/versions/3.7.1/lib/python3.7/site-packages/ansible/modules/system/group.py)
+
+        Manage presence of groups on a host. For Windows targets, use
+        the [win_group] module instead.
+
+OPTIONS (= is mandatory):
+
+- gid
+        Optional `GID' to set for the group.
+        [Default: (null)]
+
+- local
+        Forces the use of "local" command alternatives on platforms
+        that implement it. This is useful in environments that use
+        centralized authentification when you want to manipulate the
+        local groups. I.E. it uses `lgroupadd` instead of `useradd`.
+        This requires that these commands exist on the targeted host,
+        otherwise it will be a fatal error.
+        [Default: no]
+        version_added: 2.6
+
+= name
+        Name of the group to manage.
+
+
+- state
+        Whether the group should be present or not on the remote host.
+        (Choices: absent, present)[Default: present]
+
+- system
+        If `yes', indicates that the group created is a system group.
+        [Default: no]
+        type: bool
+
+
+NOTES:
+      * For Windows targets, use the [win_group] module instead.
+
+
+REQUIREMENTS:  groupadd, groupdel, groupmod
+
+AUTHOR: Stephen Fromm (@sfromm)
+        METADATA:
+          status:
+          - stableinterface
+          supported_by: core
+        
+
+EXAMPLES:
+
+- name: Ensure group "somegroup" exists
+  group:
+    name: somegroup
+    state: present
+
+

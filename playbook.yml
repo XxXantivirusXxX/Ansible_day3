@@ -1,9 +1,9 @@
 - hosts: all
   roles:
-    - common    
+    - common
+  
 
-- hosts: jenkins
-  become: yes
+- hosts: jenkins  
   roles:
     - jenkins
 
@@ -19,7 +19,8 @@
   roles:   
     - tomcat
 
-#- hosts: control_machine
-#  roles:
-#    - deploy_tomcat
+
+- hosts: control_machine
+  roles:
+    - tomcat_deploy
 

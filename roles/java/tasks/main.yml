@@ -6,7 +6,13 @@
     state: present
   become: true
 
+- name: Java Build
+  shell: java -version 2>&1 | grep "Server VM .build"
+  register: java_build
+
 - name: Java version
   shell: java -version 2>&1 | awk NR==1'{print $3}'
   register: java_version
   changed_when: no
+  notify:
+  - save details

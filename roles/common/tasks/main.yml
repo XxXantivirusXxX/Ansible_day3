@@ -1,31 +1,22 @@
 ---
 # tasks file for common
 
-#- name: install common packages
-#  package:
-#    - name: unzip 
-#      state: installed
-#    - name: python-pip
-#      state: installed
-#    - name: git
-#      state: installed
-#  become: yes
 
 - name: install common packages
   package:
     name: "{{item}}"
     state: installed
   with_items:
-    - unzip     
-#    - python-pip      
+    - unzip        
     - git    
   become: yes
     
-#- pip:
-#    name: psycopg2
-#  become: yes
-
-
+- name: Ensure Facts Directory Exists
+  file:
+    path: /etc/ansible/facts.d
+    recurse: yes
+    state: directory
+  become: yes
 
 
 

@@ -1,0 +1,13 @@
+---
+# defaults file for tomcat_deploy
+
+creator: acharviakou
+deploy_user: deployer
+deploy_password: 123456
+
+tomcat_app: http://192.168.56.203/acharviakou 
+failed_condition: "'helloworld' not in new_app.content"
+build: "93"
+path_to_war: helloworld-ws/target/helloworld-ws.war
+
+

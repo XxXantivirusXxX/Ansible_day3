@@ -1,0 +1,61 @@
+---
+# tasks file for tomcat_deploy
+
+- name: ensure that directory exist
+  file:
+    path: /tmp/{{creator}}
+    state: directory
+    mode: 0755
+
+- name: ensure that directories exists
+  file:
+    path: "{{item}}"
+    state: directory
+    mode: 0755
+  with_items:
+  - /tmp/{{creator}}/new
+  - /tmp/{{creator}}/old  
+
+- name: unarchive
+  unarchive:
+    src: http://nexus-ci.playpit.by/repository/MNT-pipeline-training/{{creator}}/pipeline-{{creator}}/{{build}}/pipeline-{{creator}}-{{build}}.tar.gz
+    dest: /tmp/{{creator}}/new
+    remote_src: yes 
+
+#### fail
+- name: deploy
+  block:
+  - deploy:
+      build_number: "{{build}}"
+      user: "{{deploy_user}}"
+      password: "{{deploy_password}}"
+      creator: "{{creator}}"
+      version: new      
+
+
+####################################################
+
+- name: check health
+  uri:
+    url: "{{tomcat_app}}"
+    return_content: yes
+  register: new_app
+  failed_when: "'helloworld' not in new_app.content"
+
+
+- name: move app to old version
+  copy: 
+    src: /tmp/{{creator}}/new/helloworld-ws/target/helloworld-ws.war
+    dest: /tmp/{{creator}}/old
+  when: "'helloworld' in new_app.content"
+
+- name: deploy previous build
+  block:
+  - deploy:
+      user: "{{ deploy_user }}"
+      password: "{{ deploy_password }}"
+      creator: "{{creator}}"
+      build_number: "{{ build }}"
+      version: old
+  when: "'helloworld' in new_app.content"
+
